@@ -1,4 +1,4 @@
-import Signup from "./components/signup"
+import Signup from "./components/Signup.jsx"
 import OTP from "./components/OTPSection"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomeSideBar from "./components/HomeSideBar"
