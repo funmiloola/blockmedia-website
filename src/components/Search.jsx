@@ -2,7 +2,7 @@ import searchIcon from "../assets/Icons/ri_search-line (1).svg";
 import moreIcon from "../assets/Icons/Vector (6).svg";
 export default function Search() {
   return (
-      <section className="">
+      <section className="font-sans">
           <div className="border-b border-b-gray-300 flex justify-center pb-8 pt-6">
       <div className="flex gap-2 items-center border border-[#ECEFF4] rounded-md pl-1.5 w-[92%] border-b border-b-gray-300 ">
         <img src={searchIcon} alt="" className="w-4 h-4" />

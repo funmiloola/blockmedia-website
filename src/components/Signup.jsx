@@ -35,7 +35,7 @@ export default function Signup() {
         <aside className={openSidebar ? 'hidden':'block'} >
             <NavSideBar/>
             </aside>
-            <section className='flex flex-col items-center'>
+            <section className='font-sans flex flex-col items-center'>
                     <img src={logo} alt="" className='pb-8'/>
                 <h1 className=' font-semibold text-3xl text-gray-900 pb-3'>Log in to your account</h1>
                 <p className=' text-gray-600 pb-8'>Welcome back!Please enter your details.</p>

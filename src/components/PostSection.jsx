@@ -2,7 +2,7 @@ import moreIcon from "../assets/Icons/Vector (6).svg";
 export default function PostSection() {
     return (
         <>
-        <div className="flex items-center justify-between px-6 pt-4 pb-7.25">
+        <div className=" font-sans flex items-center justify-between px-6 pt-4 pb-7.25">
                         <div className="flex items-center gap-2">
                         <div className= "w-6 md:w-12 h-6 md:h-12 rounded-full bg-[#D9D9D9]"></div>
                         <h2 className="font-bold text-base md:text-lg">

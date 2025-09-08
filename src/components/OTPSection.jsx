@@ -20,7 +20,7 @@ export default function OTP() {
                <aside className={openSidebar ? 'hidden':'block'} >
                         <NavSideBar/>
                         </aside>
-            <section className="flex flex-col items-center">
+            <section className="font-sans flex flex-col items-center">
                 <img src={logo} alt="" className='pb-8'/>
                 <h1 className=' font-semibold text-3xl text-gray-900 pb-3'>OTP Verification</h1>
                 <p className=' text-gray-600 pb-8 text-base'>Please enter the 5-digit code sent to your email</p>

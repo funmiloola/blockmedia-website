@@ -7,7 +7,7 @@ import { Children } from "react";
 export default function ProfilePage({ children }) {
   const { handleOpenSidebar } = useOutletContext();
   return (
-    <section className="md:grid md:grid-cols-[2fr_1fr] md:divide-x divide-gray-300 border-l border-l-gray-300 ">
+    <section className="font-sans md:grid md:grid-cols-[2fr_1fr] md:divide-x divide-gray-300 border-l border-l-gray-300 ">
       <div>
         <div className="flex py-3 items-center md:block border-b border-b-gray-300">
           <aside className="w-[5%]">

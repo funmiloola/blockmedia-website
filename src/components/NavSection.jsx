@@ -10,7 +10,7 @@ export default function NavSection({ onSidebarClick, onLoginClick }) {
         onSidebarClick()
     }
     return (
-         <nav className='flex justify-between items-center px-4 md:px-20 pt-6 pb-24'>
+         <nav className='font-sans flex justify-between items-center px-4 md:px-20 pt-6 pb-24'>
                         <div>
                             <img src={logo} alt="" />
                             </div>

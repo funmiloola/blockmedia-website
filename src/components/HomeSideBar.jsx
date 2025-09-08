@@ -6,7 +6,6 @@ import bookmarkIcon from '../assets/Icons/solar_bookmark-line-duotone.svg'
 import profileIcon from '../assets/Icons/iconamoon_profile-circle-light.svg'
 import moreIcon from '../assets/Icons/icon-park-outline_more-two.svg'
 import closeIcon from '../assets/Icons/icons8-close.svg'
-import hamburgerIcon from "../assets/Icons/hamburger-menu-more-svgrepo-com (1).svg";
 import { NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 export default function HomeSideBar() {
@@ -27,7 +26,7 @@ export default function HomeSideBar() {
   { icon: moreIcon, label: "More", to: "/home/wallet" },
 ];
     return (
-        <section className="block md:grid md:grid-cols-[1fr_2fr] pt-1 md:pt-0 xl:grid-cols-[1fr_4fr]  lg:pl-4 xl:pl-20">
+        <section className="font-sans block md:grid md:grid-cols-[1fr_2fr] lg:gap-10 pt-1 md:pt-0 xl:grid-cols-[1fr_4fr]  lg:pl-4 xl:pl-10">
       <aside
         className={
           openSidebar
@@ -35,7 +34,7 @@ export default function HomeSideBar() {
             : "hidden md:block md:static md:w-full md:pt-4 "
         }
       >
-        <img src={logo} alt="" className="pb-15 lg:pt-6 hidden mid:w-24  md:block " />
+        <img src={logo} alt="" className="pb-15 mid:pt-6 hidden mid:w-24 xl:w-44 md:block " />
         <img
           src={closeIcon}
           alt=""
@@ -43,7 +42,7 @@ export default function HomeSideBar() {
           onClick={handleCloseSidebar}
         />
 
-        <ul className="flex flex-col gap-6 md:gap-8.25 pl-5 md:pl-0">
+        <ul className="flex flex-col gap-6 md:gap-8.25 pl-5  mid:pl-3 lg:pl-0">
           {menuItems.map(({ icon, label, to }) => (
               <NavLink
                   to={to}
@@ -52,9 +51,9 @@ export default function HomeSideBar() {
                     isActive ? "text-blue-500" : "text-gray-950"
                   }
                 >
-            <li key={label} className="flex items-center gap-1 md:gap-6">
+            <li key={label} className="flex items-center gap-1 md:gap-2">
               <img src={icon} alt="" className="w-3 h-3 md:w-8 md:h-8" />
-              <span className="block mid:hidden xl:block font-medium md:font-bold text-base md:text-2xl">
+              <span className="block mid:hidden lg:block font-medium md:font-bold text-base md:text-2xl">
                 
                   {label}
                
