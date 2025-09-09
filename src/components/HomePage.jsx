@@ -13,10 +13,10 @@ export default function HomePage() {
     const icons = [photoIcon,gifIcon,listIcon,smileyIcon,locationIcon]
     const {handleOpenSidebar} = useOutletContext()
   return (
-    <section className="font-sans md:grid md:grid-cols-[2fr_1fr] md:divide-x divide-gray-300 border-l border-l-gray-300 ">
-      <div>
-        <div className="flex py-3  items-center md:block border-b border-b-gray-300">
-          <aside className="w-[5%]"
+    <section className="h-screen w-full font-sans md:grid md:grid-cols-[1fr_300px] md:divide-x divide-gray-300 border-l border-l-gray-300  ">
+      <div className="overflow-y-auto h-screen" >
+        <div className="flex py-3 pl-4  items-center md:block border-b border-b-gray-300">
+          <aside className="w-[5%] "
           >
             <img
               src={hamburgerIcon}
@@ -47,7 +47,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="hidden md:block">
-        <div className="flex gap-2 md:gap-4 px-2 md:pl-6 pb-7.5 md:pb-5.5 border-b border-b-gray-300 pt-4">
+        <div className="flex gap-2 md:gap-4 px-2 md:pl-6 pb-7.5 md:pb-3.5 border-b border-b-gray-300 pt-6">
           <div className="w-6 md:w-12 h-6 md:h-12 rounded-full bg-[#D9D9D9]"></div>
           <h2 className="md:text-lg text-base font-semibold">Make a post</h2>
         </div>
@@ -65,14 +65,14 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-        <ul className="flex justify-between md:justify-normal md:gap-4 px-4 md:pl-8 pb-7.25">
+        <ul className="flex justify-between md:justify-normal md:gap-4 px-4 md:pl-8 pb-7.25 cursor-pointer">
                   {icons.map((icon,index) => (
                       <li key={index}>
                   <img src={icon} alt="" className="w-4 h-4 md:w-6 md:h-6"/>
               </li>
           ))}
         </ul>
-        <button className="font-semibold px-6 md:px-20 py-1.5 md:py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mx-4 md:mx-8">
+        <button className="font-semibold px-6 md:px-13 py-1.5 md:py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mx-4 md:mx-8 cursor-pointer">
           Make Post
         </button>
       </div>

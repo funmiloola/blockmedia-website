@@ -3,13 +3,13 @@ import dateIcon from "../assets/Icons/ph_balloon-light.svg";
 import Search from "./Search";
 import hamburgerIcon from "../assets/Icons/hamburger-menu-more-svgrepo-com (1).svg";
 import { NavLink, Outlet, useOutletContext } from "react-router-dom";
-import { Children } from "react";
+
 export default function ProfilePage({ children }) {
   const { handleOpenSidebar } = useOutletContext();
   return (
-    <section className="font-sans md:grid md:grid-cols-[2fr_1fr] md:divide-x divide-gray-300 border-l border-l-gray-300 ">
-      <div>
-        <div className="flex py-3 items-center md:block border-b border-b-gray-300">
+    <section className="h-screen font-sans md:grid md:grid-cols-[2fr_1fr] md:divide-x divide-gray-300 border-l border-l-gray-300 ">
+      <div className="overflow-y-auto h-screen">
+        <div className="flex py-3 pl-4 items-center md:block border-b border-b-gray-300">
           <aside className="w-[5%]">
             <img
               src={hamburgerIcon}
@@ -20,15 +20,15 @@ export default function ProfilePage({ children }) {
           </aside>
           <div className="flex justify-between md:px-6 md:py-2 w-[95%] md:w-full px-4">
             <h1 className="font-semibold md:text-4xl text-2xl">johndoe</h1>
-            <button className="md:px-3.5 px-0.5 md:py-1 border border-blue-500 rounded-lg text-blue-500 ">
+            <div className="md:px-3.5 px-2 flex  items-center text-sm md:text-base  border border-blue-500 rounded-lg text-blue-500 cursor-pointer">
                          
                           {children}
-            </button>
+            </div>
           </div>
         </div>
         <div className="relative">
           <div className="w-full h-45 bg-[#D9D9D9]"></div>
-          <div className="flex gap-36 md:gap-108 items-end absolute left-[24px] bottom-[-60px]">
+          <div className="flex gap-36 mid:gap-50 xl:gap-100 items-end absolute left-[24px] bottom-[-60px]">
             <div className="w-25 h-25 bg-[#999999] rounded-full"></div>
             <button className="p-1.5 md:p-3 border border-[#999999] text-[#999999] rounded-[10px]">
               Edit Profile

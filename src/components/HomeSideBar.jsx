@@ -15,34 +15,33 @@ export default function HomeSideBar() {
   }
  function handleOpenSidebar() {
     setOpenSidebar(true);
-
     }
     const menuItems = [
   { icon: homeIcon, label: "Home", to: "/home" },
   { icon: searchIcon, label: "Explore", to: "/home/explore" },
-  { icon: nIcon, label: "Notifications", to: "/home/notifications" },
+  { icon: nIcon, label: "Notifications", to: "/home/notification" },
   { icon: bookmarkIcon, label: "Bookmark", to: "/home/bookmark" },
   { icon: profileIcon, label: "Profile", to: "/home/profile" },
-  { icon: moreIcon, label: "More", to: "/home/wallet" },
+  { icon: moreIcon, label: "More", to: "/home/more" },
 ];
     return (
-        <section className="font-sans block md:grid md:grid-cols-[1fr_2fr] lg:gap-10 pt-1 md:pt-0 xl:grid-cols-[1fr_4fr]  lg:pl-4 xl:pl-10">
+        <section className="h-screen font-sans flex">
       <aside
         className={
           openSidebar
-            ? "fixed z-10 top-0 left-0 bg-white h-screen w-1/2 "
-            : "hidden md:block md:static md:w-full md:pt-4 "
+            ? "fixed z-10 top-0 left-0 bg-white h-screen w-2/3 "
+            : "hidden md:relative md:block w-1/4 mid:w-[17%] lg:w-84 md:pt-4 mid:px-4 lg:px-10"
         }
       >
-        <img src={logo} alt="" className="pb-15 mid:pt-6 hidden mid:w-24 xl:w-44 md:block " />
+        <img src={logo} alt="" className="pb-15 mid:pt-4 hidden mid:w-24 lg:w-60 md:block" />
         <img
           src={closeIcon}
           alt=""
-          className="pb-5 block md:hidden"
+          className="pb-5 block pl-50 md:hidden"
           onClick={handleCloseSidebar}
         />
 
-        <ul className="flex flex-col gap-6 md:gap-8.25 pl-5  mid:pl-3 lg:pl-0">
+        <ul className="flex flex-col gap-6 md:gap-8.25 pl-6 md:pl-6 ">
           {menuItems.map(({ icon, label, to }) => (
               <NavLink
                   to={to}
@@ -51,7 +50,7 @@ export default function HomeSideBar() {
                     isActive ? "text-blue-500" : "text-gray-950"
                   }
                 >
-            <li key={label} className="flex items-center gap-1 md:gap-2">
+            <li key={label} onClick={handleCloseSidebar} className="flex items-center gap-1 md:gap-2 hover:bg-gray-100 rounded-md">
               <img src={icon} alt="" className="w-3 h-3 md:w-8 md:h-8" />
               <span className="block mid:hidden lg:block font-medium md:font-bold text-base md:text-2xl">
                 
@@ -63,13 +62,15 @@ export default function HomeSideBar() {
           ))}
 
           <li>
-            <button className="px-7 py-0.5 xl:py-3 xl:px-20.5 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg text-base">
+            <button className="mid:mr-2 px-7 py-0.5 xl:py-3 xl:px-20.5 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg text-base cursor-pointer">
               Post
             </button>
           </li>
         </ul>
-      </aside>
-                <Outlet context={{ handleOpenSidebar }} />
+        </aside>
+        <div  className="overflow-y-auto flex-1 h-screen w-full">
+          <Outlet context={{ handleOpenSidebar }} />
+          </div>
     </section>
 
        

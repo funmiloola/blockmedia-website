@@ -22,8 +22,8 @@ export default function PostSection() {
                       Rumour says it’s still there
                       </p>
                       <div className="flex gap-1 pl-14 pr-8 pb-6 ">
-                      <div className="w-64 md:w-76 h-56 md:h-68 bg-[#D9D9D9] rounded-l-md"></div>
-                      <div className="w-64 md:w-76 h-56 md:h-68 bg-[#D9D9D9] rounded-r-md"></div>
+                      <div className="w-64 md:w-76 h-40 md:h-68 bg-[#D9D9D9] rounded-l-md"></div>
+                      <div className="w-64 md:w-76 h-40 md:h-68 bg-[#D9D9D9] rounded-r-md"></div>
                               </div>
         </>
     )

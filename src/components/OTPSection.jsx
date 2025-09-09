@@ -11,7 +11,8 @@ export default function OTP() {
      setOpenSidebar(prev => !prev)
     }  
     function handleVerification() {
-        if (!input.current.value) return;
+        const inputLength = input.current.value.length;
+        if (!input.current.value || inputLength < 5 ) return;
         navigate("/home")
  }   
     return (
@@ -26,7 +27,7 @@ export default function OTP() {
                 <p className=' text-gray-600 pb-8 text-base'>Please enter the 5-digit code sent to your email</p>
                 <div className="flex flex-col w-2/3 md:w-[20%] gap-1.5 pb-6">
                     <label htmlFor="otp" className="text-gray-700 text-sm font-semibold">Enter code</label>
-                    <input type="text" name="" placeholder="  5-digit-code" id="otp" className="w-full outline-none border border-gray-300 rounded-lg py-2.5" ref={input} />
+                    <input type="text" name="" maxlength="5" placeholder="5-digit-code" id="otp" className="w-full outline-none border border-gray-300 rounded-lg py-2.5 px-2" ref={input} />
                     <button className="font-semibold w-full py-2.5 mt-4 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg" onClick={handleVerification}>Verify</button>
                 </div>
             </section>
