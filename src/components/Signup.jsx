@@ -54,12 +54,12 @@ export default function Signup() {
                     <img src={logo} alt="" className='pb-8'/>
                 <h1 className=' font-semibold text-3xl text-gray-900 pb-3'>Log in to your account</h1>
                 <p className=' text-gray-600 pb-8'>Welcome back!Please enter your details.</p>
-                <div className='w-2/3 md:w-[25%] flex flex-col gap-5'>
+                <div className='w-[85%] md:w-[25%] flex flex-col gap-5'>
                     <label htmlFor="email" className="text-gray-700 text-sm font-semibold">Email</label>
                     <input type="text" placeholder='Enter your Email' className="py-2.5 outline-none border border-gray-300 rounded-lg px-2" ref={inputEmail} />
                     <p className='text-sm text-red-400'>{errMessage}</p>
                 </div>
-                <div className='w-2/3 md:w-[25%] flex flex-col gap-5'>
+                <div className='w-[85%] md:w-[25%] flex flex-col gap-5'>
                     <label htmlFor="password" className="text-gray-700 text-sm font-semibold">Password</label>
                     <input type="password" placeholder='Password' className="py-2.5 outline-none border border-gray-300 rounded-lg px-2" ref={inputPassword} />
                     <p className='text-sm text-red-400'>{errorMessage}</p>
