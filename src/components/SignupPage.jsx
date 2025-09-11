@@ -5,74 +5,81 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
-export default function SignupPage() {
-  const [openSidebar, setOpenSidebar] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-    const [errMessage, setErrMessage] = useState("");
-    const [loading, setLoading] = useState(false)
-    const [disabled,setDisabled] = useState(false)
-  const navigate = useNavigate();
-  const inputEmail = useRef();
-  const inputPassword = useRef();
+import { useForm } from "react-hook-form";
+export default function SignupPage() {   
+//   const [errorMessage, setErrorMessage] = useState("");
+//     const [errMessage, setErrMessage] = useState("");
+    // const [loading, setLoading] = useState(false)
+    // const [disabled,setDisabled] = useState(false)
+    // const inputEmail = useRef();
+    //   const inputPassword = useRef();
+ const [openSidebar, setOpenSidebar] = useState(true);
+    const {handleSubmit,register,formState:{errors,isSubmitting},getValues} = useForm()
+    const navigate = useNavigate();
+  const onSubmit = async () => {
+        await registerAccount()
+        navigate('/home')
+    }  
   function handleSideBar() {
     setOpenSidebar((prev) => !prev);
-  }
-  function handleLogin() {
-    const inputtedEmail = inputEmail.current.value;
-    const inputtedPassword = inputPassword.current.value;
-    const validEmail = inputtedEmail.includes("@");
-      const passwordLength = inputPassword.current.value.length;
-      let hasError = false
-    if (!inputtedEmail) {
-        setErrorMessage("Input Email");
-        hasError = true;
-    } else if (!validEmail) {
-        setErrorMessage("Input a valid Email");
-        hasError = true;
-    } else {
-        setErrorMessage('')
     }
-    if (!inputtedPassword) {
-        setErrMessage("Input Password");
-        hasError = true;
-    } else if (passwordLength < 6) {
-        setErrMessage("Input Password with 6 or more Characters");
-        hasError = true;
-    } else {
-        setErrMessage('')
-      }
-      return hasError;
-      
-  }
-  const handleRegister = async () => {
-    let hasErrors = handleLogin();
-      if (!hasErrors) {
-          setLoading(true)
-          setDisabled(true)
-      await register();
-      navigate("/home");
-      }
-      setLoading(false)
-      setDisabled(false)
-  };
-  const register = async () => {
-    const inputtedEmail = inputEmail.current.value;
-    const inputtedPassword = inputPassword.current.value;
+    const registerAccount = async () => {
+      const email = getValues('email')
+      const password = getValues('password')
     try {
       const user = await createUserWithEmailAndPassword(
         auth,
-        inputtedEmail,
-        inputtedPassword
+          email,
+        password
       );
     } catch (error) {
       console.log(error.message);
     }
   };
+//   function handleLogin() {
+//     const inputtedEmail = inputEmail.current.value;
+//     const inputtedPassword = inputPassword.current.value;
+//     const validEmail = inputtedEmail.includes("@");
+//       const passwordLength = inputPassword.current.value.length;
+//       let hasError = false
+//     if (!inputtedEmail) {
+//         setErrorMessage("Input Email");
+//         hasError = true;
+//     } else if (!validEmail) {
+//         setErrorMessage("Input a valid Email");
+//         hasError = true;
+//     } else {
+//         setErrorMessage('')
+//     }
+//     if (!inputtedPassword) {
+//         setErrMessage("Input Password");
+//         hasError = true;
+//     } else if (passwordLength < 6) {
+//         setErrMessage("Input Password with 6 or more Characters");
+//         hasError = true;
+//     } else {
+//         setErrMessage('')
+//       }
+//       return hasError;
+      
+//   }
+//   const handleRegister = async () => {
+//     let hasErrors = handleLogin();
+//       if (!hasErrors) {
+//           setLoading(true)
+//           setDisabled(true)
+//       await register();
+//       navigate("/home");
+//       }
+//       setLoading(false)
+//       setDisabled(false)
+//   };
+  
   return (
     <>
       <NavSection
         onSidebarClick={handleSideBar}
-        onLoginClick={handleRegister}
+        
       />
       <aside className={openSidebar ? "hidden" : "block"}>
         <NavSideBar />
@@ -82,8 +89,9 @@ export default function SignupPage() {
         <h1 className=" font-semibold text-3xl text-gray-900 pb-3">
           Create an account
         </h1>
-        <p className=" text-gray-600 pb-8">Let's get you started</p>
-        <div className="w-[85%] md:w-[25%] flex flex-col gap-3">
+              <p className=" text-gray-600 pb-8">Let's get you started</p>
+              <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <div className=" flex flex-col gap-3">
           <label
             htmlFor="email"
             className="text-gray-700 text-sm font-semibold"
@@ -91,14 +99,24 @@ export default function SignupPage() {
             Email
           </label>
           <input
-            ref={inputEmail}
+                          {...register('email', {
+                              required: "Email is required",
+                              validate: (value) => {
+                                  if (!value.includes('@')) {
+                                      return "Enter a valid email"
+                                  }
+                                  return true;
+                              }
+            })}
             type="text"
             placeholder="Enter your Email"
             className="py-2.5 px-2 outline-none border border-gray-300 rounded-lg "
           />
-          <p className="text-sm text-red-400">{errorMessage}</p>
+                      {errors.email && (<div className="text-red-500">
+                          {errors.email.message}
+         </div>)} 
         </div>
-        <div className="w-[85%] md:w-[25%] flex flex-col gap-3 pt-4">
+        <div className=" flex flex-col gap-3 pt-4">
           <label
             htmlFor="password"
             className="text-gray-700 text-sm font-semibold"
@@ -106,20 +124,25 @@ export default function SignupPage() {
             Password
           </label>
           <input
-            ref={inputPassword}
+                          {...register('password', {
+                              required: "Password is required",
+                              minLength:{value:6, message:'Enter a minimun of 6 characters'}
+            })}
             type="password"
             placeholder="Password"
             className="py-2.5 px-2 outline-none border border-gray-300 rounded-lg "
           />
-          <p className="text-sm text-red-400">{errMessage}</p>
+                      {errors.password && (<div className="text-red-500">
+                        {errors.password.message}  
+          </div>)}
         </div>
         <button
-          onClick={handleRegister}
-          className="flex items-center justify-center gap-2 font-semibold w-[85%] md:w-[25%] py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mt-4 cursor-pointer disabled:bg-gray-300 disabled:border-gray-300"
-          disabled={disabled}        
+          type="submit"
+          className="flex items-center justify-center gap-2 font-semibold px-30 md:px-40  py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mt-4 cursor-pointer disabled:bg-gray-300 disabled:border-gray-300"
+          disabled={isSubmitting}        
         >
                   <span className="">Sign up</span>
-                   {loading ? (<svg
+                   {isSubmitting ? (<svg
             class="mr-3 -ml-1 size-5 animate-spin text-white"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -139,7 +162,8 @@ export default function SignupPage() {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             ></path>
                   </svg>) : null }
-        </button>
+                  </button>
+                  </form>
         <p className="pt-8 pb-16 text-gray-600">
           Have an account?
           <span className="text-[#3279F3] font-semibold">

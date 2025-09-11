@@ -6,84 +6,97 @@ import NavSideBar from "./NavSideBar";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
+import { useForm } from "react-hook-form";
 export default function Signup() {
   const [openSidebar, setOpenSidebar] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-    const [errMessage, setErrMessage] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [disabled,setDisabled] = useState(false)
-  const navigate = useNavigate();
-  const inputEmail = useRef();
-  const inputPassword = useRef();
-  function handleSideBar() {
-    setOpenSidebar((prev) => !prev);
-  }
-  function handleLogin() {
-    const inputtedEmail = inputEmail.current.value;
-    const validEmail = inputtedEmail.includes("@");
-    const inputtedPassword = inputPassword.current.value;
-      const passwordLength = inputtedPassword.length;
-      let hasError = false
-    if (!inputtedEmail) {
-        setErrMessage("Input Mail");
-        hasError = true
-    } else if (!validEmail) {
-        setErrMessage("Input Valid Mail");
-        hasError = true
-    } else {
-        setErrMessage('')
-    }
-    if (!inputtedPassword) {
-        setErrorMessage("Input Password");
-        hasError = true;
-    } else if (passwordLength < 6) {
-        setErrorMessage("Input Password with 6 or more Characters");
-        hasError = true;
-    } else {
-        setErrorMessage('')
-    }
-    return hasError
-  }
-  const handleRegister = async () => {
-      let hasErrors = handleLogin();
-      if (hasErrors) return;
-      setLoading(true)
-      setDisabled(true)
-    try {
-      const response = await login();
-      if (response?.success) {
-        navigate("/home");
-      } else {
-        toast.error(response.errorMessage.replaceAll('_',' '))
-      }
-    } catch {
-      console.log("Enter a registered email");
-      }
-      setLoading(false)
-      setDisabled(false)
-  };
-
-  const login = async () => {
-    const inputtedEmail = inputEmail.current.value;
-    const inputtedPassword = inputPassword.current.value;
+    //   const [errorMessage, setErrorMessage] = useState("");
+    //   const inputEmail = useRef();
+//     const inputPassword = useRef();
+//     const [errMessage, setErrMessage] = useState("");
+    // const [loading, setLoading] = useState(false);
+    // const [disabled, setDisabled] = useState(false)
+    const navigate = useNavigate();
+    const login = async () => {
+      const email = getValues('email')
+      const password = getValues('password')
     try {
       const user = await signInWithEmailAndPassword(
         auth,
-        inputtedEmail,
-        inputtedPassword
+          email,
+       password
       );
       return { success: true,};
     } catch (error) {
       return { success: false,errorMessage:error.code  };
-      console.log(error.message);
+      
     }
   };
-    
+    const { register, handleSubmit,getValues, formState: {errors,isSubmitting}} = useForm()
+    const onSubmit = async () => {
+        try {
+            const response = await login() 
+            if (response?.success) {
+                navigate('/home')
+            } else {
+                toast.error(response.errorMessage.replaceAll('_', ' '))
+            }
+            
+        } catch {
+            console.log('Enter a valid mail')
+        }
+    }
+  function handleSideBar() {
+    setOpenSidebar((prev) => !prev);
+  }
+//   function handleLogin() {
+//     const inputtedEmail = inputEmail.current.value;
+//     const validEmail = inputtedEmail.includes("@");
+//     const inputtedPassword = inputPassword.current.value;
+//       const passwordLength = inputtedPassword.length;
+//       let hasError = false
+//     if (!inputtedEmail) {
+//         setErrMessage("Input Mail");
+//         hasError = true
+//     } else if (!validEmail) {
+//         setErrMessage("Input Valid Mail");
+//         hasError = true
+//     } else {
+//         setErrMessage('')
+//     }
+//     if (!inputtedPassword) {
+//         setErrorMessage("Input Password");
+//         hasError = true;
+//     } else if (passwordLength < 6) {
+//         setErrorMessage("Input Password with 6 or more Characters");
+//         hasError = true;
+//     } else {
+//         setErrorMessage('')
+//     }
+//     return hasError
+//   }
+//   const handleRegister = async () => {
+//       let hasErrors = handleLogin();
+//       if (hasErrors) return;
+//       setLoading(true)
+//       setDisabled(true)
+//     try {
+//       const response = await login();
+//       if (response?.success) {
+//         navigate("/home");
+//       } else {
+//         toast.error(response.errorMessage.replaceAll('_',' '))
+//       }
+//     } catch {
+//       console.log("Enter a registered email");
+//       }
+//       setLoading(false)
+//       setDisabled(false)
+//   };    
   return (
     <>
       <NavSection
         onSidebarClick={handleSideBar}
-        onLoginClick={handleRegister}
+        
       />
       <aside className={openSidebar ? "hidden" : "block"}>
         <NavSideBar />
@@ -95,8 +108,9 @@ export default function Signup() {
         </h1>
         <p className=" text-gray-600 pb-8">
           Welcome back!Please enter your details.
-        </p>
-        <div className="w-[85%] md:w-[25%] flex flex-col gap-5">
+              </p>
+              <form onSubmit={handleSubmit(onSubmit)} className="">
+        <div className=" flex flex-col gap-5">
           <label
             htmlFor="email"
             className="text-gray-700 text-sm font-semibold"
@@ -107,11 +121,19 @@ export default function Signup() {
             type="text"
             placeholder="Enter your Email"
             className="py-2.5 outline-none border border-gray-300 rounded-lg px-2"
-            ref={inputEmail}
+            {...register("email",{
+                              required:'Email is required',
+                validate: (value) => {
+                    if (!value.includes('@')) {
+                                      return "Enter a valid email"
+                    }
+                    return true;
+                              }
+                          })}
           />
-          <p className="text-sm text-red-400">{errMessage}</p>
+                      {errors.email && (<div className="text-red-500">{ errors.email.message}</div>)}
         </div>
-        <div className="w-[85%] md:w-[25%] flex flex-col gap-5">
+        <div className=" flex flex-col gap-5">
           <label
             htmlFor="password"
             className="text-gray-700 text-sm font-semibold"
@@ -122,11 +144,16 @@ export default function Signup() {
             type="password"
             placeholder="Password"
             className="py-2.5 outline-none border border-gray-300 rounded-lg px-2"
-            ref={inputPassword}
+                           {...register("password", {
+                              minLength: {value:6, message:'Password must have atleast 6 characters'},
+                              required:'Password is required'
+                          } )}
           />
-          <p className="text-sm text-red-400">{errorMessage}</p>
+                      {errors.password && (<div className="text-red-500">
+                          {errors.password.message}
+         </div>)}
         </div>
-        <div className="flex items-center w-full px-8 justify-between mid:justify-center mid:w-1/2 mid:gap-4 xl:gap-14 py-6">
+        <div className="flex items-center  justify-between py-6">
           <div className="flex gap-1">
             <input type="checkbox" id="checkbox" />
             <label
@@ -140,33 +167,36 @@ export default function Signup() {
             <a href="">Forgot Password</a>
           </p>
         </div>
-        <button
-          className=" flex items-center justify-center gap-2 font-semibold w-[85%] md:w-[25%] py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] cursor-pointer rounded-lg disabled:bg-gray-300 disabled:border-gray-300 "
-          onClick={handleRegister} disabled={disabled}
-        >
-                  <span>Log in</span> 
-                   {loading ? (<svg
-            class="mr-3 -ml-1 size-5 animate-spin text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-                  </svg>) : null }
-          
-        </button>
+       <button
+  className="flex items-center justify-center gap-2 font-semibold px-30 md:px-40 py-3 bg-[#3279F3] border border-[#3279F3] text-white cursor-pointer rounded-lg disabled:bg-gray-300 disabled:border-gray-300"
+  disabled={isSubmitting}
+  type="submit"
+>
+  <span>Log in</span>
+  {isSubmitting ? (
+    <svg
+      className="mr-3 -ml-1 size-5 animate-spin text-white"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      ></circle>
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path>
+    </svg>
+  ) : null}
+</button>
+                  </form>
         <p className="pt-8 pb-16 text-gray-600">
           Don't have an account?{" "}
           <span className="text-[#3279F3] font-semibold">
