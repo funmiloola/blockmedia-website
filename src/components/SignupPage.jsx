@@ -20,7 +20,7 @@ export default function SignupPage() {
   function handleLogin() {
     const inputtedEmail = inputEmail.current.value;
     const inputtedPassword = inputPassword.current.value;
-    const validEmail = inputtedEmail.includes("@gmail.com");
+    const validEmail = inputtedEmail.includes("@");
       const passwordLength = inputPassword.current.value.length;
       let hasError = false
     if (!inputtedEmail) {
