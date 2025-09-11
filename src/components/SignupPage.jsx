@@ -14,11 +14,18 @@ export default function SignupPage() {
     // const inputEmail = useRef();
     //   const inputPassword = useRef();
  const [openSidebar, setOpenSidebar] = useState(true);
-    const {handleSubmit,register,formState:{errors,isSubmitting},getValues} = useForm()
+const {handleSubmit,register,formState:{errors,isSubmitting},getValues,setError} = useForm()
     const navigate = useNavigate();
-  const onSubmit = async () => {
-        await registerAccount()
+    const onSubmit = async () => {
+        try {
+          await registerAccount()
         navigate('/home')
+      }
+        catch (error) {
+            setError('email', {
+                message:'This mail is already taken'
+            })
+        } 
     }  
   function handleSideBar() {
     setOpenSidebar((prev) => !prev);
@@ -31,9 +38,10 @@ export default function SignupPage() {
         auth,
           email,
         password
-      );
+        );
+        return user
     } catch (error) {
-      console.log(error.message);
+        throw error;
     }
   };
 //   function handleLogin() {
