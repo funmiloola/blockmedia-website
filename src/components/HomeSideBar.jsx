@@ -11,7 +11,7 @@ import { useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import ModalSection from "./modalSection";
+import ModalSection from "./ModalSection";
 export default function HomeSideBar() {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openModal, setOpenModal] = useState(false)
