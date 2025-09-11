@@ -83,7 +83,7 @@ export default function SignupPage() {
           Create an account
         </h1>
         <p className=" text-gray-600 pb-8">Let's get you started</p>
-        <div className="w-2/3 md:w-[20%] flex flex-col gap-3">
+        <div className="w-[85%] md:w-[25%] flex flex-col gap-3">
           <label
             htmlFor="email"
             className="text-gray-700 text-sm font-semibold"
@@ -98,7 +98,7 @@ export default function SignupPage() {
           />
           <p className="text-sm text-red-400">{errorMessage}</p>
         </div>
-        <div className="w-2/3 md:w-[20%] flex flex-col gap-3 pt-4">
+        <div className="w-[85%] md:w-[25%] flex flex-col gap-3 pt-4">
           <label
             htmlFor="password"
             className="text-gray-700 text-sm font-semibold"
@@ -115,10 +115,10 @@ export default function SignupPage() {
         </div>
         <button
           onClick={handleRegister}
-          className="flex items-center gap-2 font-semibold px-26.5 py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mt-4 cursor-pointer disabled:bg-gray-300 disabled:border-gray-300"
+          className="flex items-center justify-center gap-2 font-semibold w-[85%] md:w-[25%] py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mt-4 cursor-pointer disabled:bg-gray-300 disabled:border-gray-300"
           disabled={disabled}        
         >
-                  <span>Sign up</span>
+                  <span className="">Sign up</span>
                    {loading ? (<svg
             class="mr-3 -ml-1 size-5 animate-spin text-white"
             xmlns="http://www.w3.org/2000/svg"

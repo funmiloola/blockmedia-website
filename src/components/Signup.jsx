@@ -126,7 +126,7 @@ export default function Signup() {
           />
           <p className="text-sm text-red-400">{errorMessage}</p>
         </div>
-        <div className="flex items-center gap-14 py-6">
+        <div className="flex items-center w-full px-8 justify-between mid:justify-center mid:w-1/2 mid:gap-4 xl:gap-14 py-6">
           <div className="flex gap-1">
             <input type="checkbox" id="checkbox" />
             <label
@@ -141,7 +141,7 @@ export default function Signup() {
           </p>
         </div>
         <button
-          className=" flex items-center gap-2 font-semibold px-36 py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] cursor-pointer rounded-lg disabled:bg-gray-300 disabled:border-gray-300 "
+          className=" flex items-center justify-center gap-2 font-semibold w-[85%] md:w-[25%] py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] cursor-pointer rounded-lg disabled:bg-gray-300 disabled:border-gray-300 "
           onClick={handleRegister} disabled={disabled}
         >
                   <span>Log in</span> 
