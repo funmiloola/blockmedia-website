@@ -1,20 +1,11 @@
 import logo from "../assets/images/BlockMedia.svg";
-import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import NavSection from "./NavSection";
-import NavSideBar from "./NavSideBar";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 export default function Signup() {
-  const [openSidebar, setOpenSidebar] = useState(true);
-    //   const [errorMessage, setErrorMessage] = useState("");
-    //   const inputEmail = useRef();
-//     const inputPassword = useRef();
-//     const [errMessage, setErrMessage] = useState("");
-    // const [loading, setLoading] = useState(false);
-    // const [disabled, setDisabled] = useState(false)
     const navigate = useNavigate();
     const login = async () => {
       const email = getValues('email')
@@ -30,78 +21,45 @@ export default function Signup() {
       return { success: false,errorMessage:error.code  };
       
     }
-  };
+    };
+    const errMessage = async () => {
+        const response = await login()
+        try {
+            const message = response.errorMessage.replaceAll('_',' ')
+          if (message === 'auth/invalid-email') {
+                return 'Enter a registered email '
+        }
+       else if (message === 'auth/network-request-failed') {
+            return 'Network Failed Try again!'
+        }
+          else {
+              return 'Error'
+        }
+        }
+        catch(error) {
+            throw error;
+        }
+    }
     const { register, handleSubmit,getValues, formState: {errors,isSubmitting}} = useForm()
     const onSubmit = async () => {
         try {
             const response = await login() 
+          
             if (response?.success) {
                 navigate('/home')
             } else {
-                toast.error(response.errorMessage.replaceAll('_', ' '))
+                const message = await errMessage()
+                toast.error(message)
             }
             
         } catch {
             console.log('Enter a valid mail')
         }
     }
-  function handleSideBar() {
-    setOpenSidebar((prev) => !prev);
-  }
-//   function handleLogin() {
-//     const inputtedEmail = inputEmail.current.value;
-//     const validEmail = inputtedEmail.includes("@");
-//     const inputtedPassword = inputPassword.current.value;
-//       const passwordLength = inputtedPassword.length;
-//       let hasError = false
-//     if (!inputtedEmail) {
-//         setErrMessage("Input Mail");
-//         hasError = true
-//     } else if (!validEmail) {
-//         setErrMessage("Input Valid Mail");
-//         hasError = true
-//     } else {
-//         setErrMessage('')
-//     }
-//     if (!inputtedPassword) {
-//         setErrorMessage("Input Password");
-//         hasError = true;
-//     } else if (passwordLength < 6) {
-//         setErrorMessage("Input Password with 6 or more Characters");
-//         hasError = true;
-//     } else {
-//         setErrorMessage('')
-//     }
-//     return hasError
-//   }
-//   const handleRegister = async () => {
-//       let hasErrors = handleLogin();
-//       if (hasErrors) return;
-//       setLoading(true)
-//       setDisabled(true)
-//     try {
-//       const response = await login();
-//       if (response?.success) {
-//         navigate("/home");
-//       } else {
-//         toast.error(response.errorMessage.replaceAll('_',' '))
-//       }
-//     } catch {
-//       console.log("Enter a registered email");
-//       }
-//       setLoading(false)
-//       setDisabled(false)
-//   };    
   return (
     <>
-      <NavSection
-        onSidebarClick={handleSideBar}
-        
-      />
-      <aside className={openSidebar ? "hidden" : "block"}>
-        <NavSideBar />
-      </aside>
-      <section className="font-sans flex flex-col items-center">
+      <NavSection  />
+      <section className="font-sans flex flex-col items-center pt-20 md:pt-24">
         <img src={logo} alt="" className="pb-8" />
         <h1 className=" font-semibold text-3xl text-gray-900 pb-3">
           Log in to your account
@@ -168,7 +126,7 @@ export default function Signup() {
           </p>
         </div>
        <button
-  className="flex items-center justify-center gap-2 font-semibold px-30 md:px-40 py-3 bg-[#3279F3] border border-[#3279F3] text-white cursor-pointer rounded-lg disabled:bg-gray-300 disabled:border-gray-300"
+  className="flex items-center justify-center gap-2 font-semibold px-35 md:px-40 py-3 bg-[#3279F3] border border-[#3279F3] text-white cursor-pointer rounded-lg disabled:bg-gray-300 disabled:border-gray-300"
   disabled={isSubmitting}
   type="submit"
 >
@@ -203,7 +161,7 @@ export default function Signup() {
             <Link to="/signup">Sign up</Link>
           </span>
               </p>
-            <ToastContainer position="top-center" autoClose={1000}  />     
+           
       </section>
     </>
   );

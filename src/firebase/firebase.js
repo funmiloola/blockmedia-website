@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyD2HA10vukUvIEqL1xB3EN6PcWULjyUuyU",
+  apiKey:import.meta.env.VITE_API_KEY,
   authDomain: "blockmedia-website.firebaseapp.com",
   projectId: "blockmedia-website",
   storageBucket: "blockmedia-website.firebasestorage.app",

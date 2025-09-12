@@ -2,7 +2,7 @@ import ProfilePage from "./ProfilePage"
 import icon from "../assets/Icons/Icon.svg";
 import groupIcon from "../assets/Icons/Group (2).svg"
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function ProfileWallet() {
     const [openWithdrawButton, setOpenWithdrawButton] = useState(false)  
@@ -31,7 +31,6 @@ export default function ProfileWallet() {
                 </div>
                 </div>)}
             </ProfilePage>
-             <ToastContainer position="top-center" autoClose={2000}  />  
        </>     
     )
 }

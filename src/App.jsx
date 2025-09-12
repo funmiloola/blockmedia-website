@@ -1,6 +1,7 @@
 import Signup from "./components/Signup.jsx";
 import OTP from "./components/OTPSection";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {ToastContainer} from "react-toastify"
 import HomeSideBar from "./components/HomeSideBar";
 import HomePage from "./components/HomePage";
 import SignupPage from "./components/SignupPage";
@@ -32,6 +33,7 @@ function App() {
           <Route>404 Not Found</Route>
         </Routes>
       </BrowserRouter>
+       <ToastContainer position="top-center" autoClose={4000}  />     
     </div>
   );
 }

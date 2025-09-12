@@ -1,19 +1,10 @@
 import NavSection from "./NavSection";
-import NavSideBar from "./NavSideBar";
 import logo from "../assets/images/BlockMedia.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useForm } from "react-hook-form";
 export default function SignupPage() {   
-//   const [errorMessage, setErrorMessage] = useState("");
-//     const [errMessage, setErrMessage] = useState("");
-    // const [loading, setLoading] = useState(false)
-    // const [disabled,setDisabled] = useState(false)
-    // const inputEmail = useRef();
-    //   const inputPassword = useRef();
- const [openSidebar, setOpenSidebar] = useState(true);
 const {handleSubmit,register,formState:{errors,isSubmitting},getValues,setError} = useForm()
     const navigate = useNavigate();
     const onSubmit = async () => {
@@ -27,9 +18,6 @@ const {handleSubmit,register,formState:{errors,isSubmitting},getValues,setError}
             })
         } 
     }  
-  function handleSideBar() {
-    setOpenSidebar((prev) => !prev);
-    }
     const registerAccount = async () => {
       const email = getValues('email')
       const password = getValues('password')
@@ -44,55 +32,12 @@ const {handleSubmit,register,formState:{errors,isSubmitting},getValues,setError}
         throw error;
     }
   };
-//   function handleLogin() {
-//     const inputtedEmail = inputEmail.current.value;
-//     const inputtedPassword = inputPassword.current.value;
-//     const validEmail = inputtedEmail.includes("@");
-//       const passwordLength = inputPassword.current.value.length;
-//       let hasError = false
-//     if (!inputtedEmail) {
-//         setErrorMessage("Input Email");
-//         hasError = true;
-//     } else if (!validEmail) {
-//         setErrorMessage("Input a valid Email");
-//         hasError = true;
-//     } else {
-//         setErrorMessage('')
-//     }
-//     if (!inputtedPassword) {
-//         setErrMessage("Input Password");
-//         hasError = true;
-//     } else if (passwordLength < 6) {
-//         setErrMessage("Input Password with 6 or more Characters");
-//         hasError = true;
-//     } else {
-//         setErrMessage('')
-//       }
-//       return hasError;
-      
-//   }
-//   const handleRegister = async () => {
-//     let hasErrors = handleLogin();
-//       if (!hasErrors) {
-//           setLoading(true)
-//           setDisabled(true)
-//       await register();
-//       navigate("/home");
-//       }
-//       setLoading(false)
-//       setDisabled(false)
-//   };
-  
+
   return (
     <>
       <NavSection
-        onSidebarClick={handleSideBar}
-        
       />
-      <aside className={openSidebar ? "hidden" : "block"}>
-        <NavSideBar />
-      </aside>
-      <section className="font-sans flex flex-col items-center">
+      <section className="font-sans flex flex-col items-center pt-20 md:pt-24">
         <img src={logo} alt="" className="pb-8" />
         <h1 className=" font-semibold text-3xl text-gray-900 pb-3">
           Create an account
@@ -146,7 +91,7 @@ const {handleSubmit,register,formState:{errors,isSubmitting},getValues,setError}
         </div>
         <button
           type="submit"
-          className="flex items-center justify-center gap-2 font-semibold px-30 md:px-40  py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mt-4 cursor-pointer disabled:bg-gray-300 disabled:border-gray-300"
+          className="flex items-center justify-center gap-2 font-semibold px-35 md:px-40  py-3 bg-[#3279F3] border border-[#3279F3] text-[#ffffff] rounded-lg mt-6 cursor-pointer disabled:bg-gray-300 disabled:border-gray-300"
           disabled={isSubmitting}        
         >
                   <span className="">Sign up</span>
