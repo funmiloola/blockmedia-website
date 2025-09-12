@@ -5,10 +5,11 @@ const firebaseConfig = {
   apiKey:import.meta.env.VITE_API_KEY,
   authDomain: "blockmedia-website.firebaseapp.com",
   projectId: "blockmedia-website",
-  storageBucket: "blockmedia-website.firebasestorage.app",
+  storageBucket: "blockmedia-website.appspot.com",
   messagingSenderId: "367708171868",
   appId: import.meta.env.VITE_APP_ID,
   measurementId: import.meta.env.VITE_MEASUREMENT_ID
+
 };
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
