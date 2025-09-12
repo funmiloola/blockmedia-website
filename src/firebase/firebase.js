@@ -7,8 +7,8 @@ const firebaseConfig = {
   projectId: "blockmedia-website",
   storageBucket: "blockmedia-website.firebasestorage.app",
   messagingSenderId: "367708171868",
-  appId: "1:367708171868:web:e03df085b1079534cc0099",
-  measurementId: "G-BW8R3YH40S"
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
